@@ -35,18 +35,18 @@ jobs:
           credentials_json: ${{ env.GCP_JSON_SA_KEY }}
       - name: Terraform init
         run: terraform init
-        working-directory: $TERRAFORM_DIR
+        working-directory: ${{ env.TERRAFORM_DIR }}
       - name: Validating
         run: terraform validate
         working-directory: terraform
       - name: Terraform plan
         run: terraform plan -out=tfplan
-        working-directory: $TERRAFORM_DIR
+        working-directory: ${{ env.TERRAFORM_DIR }}
       - name: Plan file artifact upload
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: $TERRAFORM_DIR/tfplan
+          path: ${{ env.TERRAFORM_DIR }}/tfplan
 
   apply:
     runs-on: ubuntu-latest
@@ -79,17 +79,17 @@ jobs:
 
       - name: Terraform init
         run: terraform init
-        working-directory: $TERRAFORM_DIR
+        working-directory: ${{ env.TERRAFORM_DIR }}
 
       - name: Plan file artifact download
         uses: actions/download-artifact@v4
         with:
           name: tfplan
-          path: $TERRAFORM_DIR
+          path: ${{ env.TERRAFORM_DIR }}
 
       - name: Apply from the plan
         run: terraform apply -auto-approve tfplan
-        working-directory: $TERRAFORM_DIR
+        working-directory: ${{ env.TERRAFORM_DIR }}
 
       - name: Output data
         id: apply_terraform
@@ -112,11 +112,11 @@ jobs:
 
       - name: Run Ansible Playbook
         run: |
-          chmod +x ansible/dynamic_inventory.sh
-          ./ansible/dynamic_inventory.sh ${{ needs.apply.outputs.terraform_result }}
+          chmod +x ${{ env.ANSIBLE_DIR }}/dynamic_inventory.sh
+          ./${{ env.ANSIBLE_DIR }}/dynamic_inventory.sh ${{ needs.apply.outputs.terraform_result }}
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > infra_key
           chmod 600 infra_key
-          ansible-playbook -i ./ansible/inventory.ini ansible/main_playbook.yml --private-key infra_key
+          ansible-playbook -i ./${{ env.ANSIBLE_DIR }}/inventory.ini ${{ env.ANSIBLE_DIR }}/main_playbook.yml --private-key infra_key
 
   destroy:
     runs-on: ubuntu-latest
@@ -135,7 +135,7 @@ jobs:
           credentials_json: ${{ env.GCP_JSON_SA_KEY }}
       - name: Terraform init
         run: terraform init
-        working-directory: $TERRAFORM_DIR
+        working-directory: ${{ env.TERRAFORM_DIR }}
       - name: Destroy infrastructure
         run: terraform destroy -auto-approve
-        working-directory: $TERRAFORM_DIR
+        working-directory: ${{ env.TERRAFORM_DIR }}
