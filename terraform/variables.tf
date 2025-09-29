@@ -6,7 +6,7 @@ variable "project_id" {
   description = "Name of the project in GCP"
 }
 
-variable "cp-zone-for-mig" {
+variable "cp_zone_for_mig" {
   description = "Zone for the MIG, ie. europe-west1-b"
 }
 

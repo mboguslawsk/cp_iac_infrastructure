@@ -7,7 +7,7 @@ module "compute" {
   source          = "./modules/compute"
   cp-network      = module.network.cp-network
   cp-subnetwork   = module.network.cp-subnetwork
-  cp-zone-for-mig = var.cp-zone-for-mig
+  cp-zone-for-mig = var.cp_zone_for_mig
   ext-ip          = module.network.cp-ext-ip-bm
   ext-ip-id       = module.network.cp-ext-ip-id-bm
   cp-region = var.region

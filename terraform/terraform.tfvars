@@ -1,5 +1,5 @@
 region          = "europe-west1"
-cp-zone-for-mig = "europe-west1-b"
+cp_zone_for_mig = "europe-west1-b"
 project_id      = "gd-gcp-internship-devops"
 db_password = "petclinic"
 db_username = "petclinic"
