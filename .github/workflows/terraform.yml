@@ -16,7 +16,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       - name: Formatting
         run: terraform fmt -recursive
-        working-directory: $TERRAFORM_DIR
+        working-directory: ${{ env.TERRAFORM_DIR }}
   config_validation:
     runs-on: ubuntu-latest
     needs: config_formatting
