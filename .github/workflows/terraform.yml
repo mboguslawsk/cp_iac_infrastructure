@@ -17,17 +17,6 @@ jobs:
       - name: Formatting
         run: terraform fmt -recursive
         working-directory: ${{ env.TERRAFORM_DIR }}
-  config_validation:
-    runs-on: ubuntu-latest
-    needs: config_formatting
-    steps:
-      - name: Repo content download
-        uses: actions/checkout@v4
-      - name: Terraform setup
-        uses: hashicorp/setup-terraform@v3
-      - name: Validating
-        run: terraform validate
-        working-directory: terraform
       
   plan:
     runs-on: ubuntu-latest
@@ -47,6 +36,9 @@ jobs:
       - name: Terraform init
         run: terraform init
         working-directory: $TERRAFORM_DIR
+      - name: Validating
+        run: terraform validate
+        working-directory: terraform
       - name: Terraform plan
         run: terraform plan -out=tfplan
         working-directory: $TERRAFORM_DIR
