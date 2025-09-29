@@ -46,9 +46,11 @@ jobs:
       
       - name: Prepare .tfvars file
         run: |
-          export project_id="${{ secrets.project_id }}"
-          export db_password="${{ secrets.db_password }}"
-          export db_username="${{ secrets.db_username }}"
+          export TF_VAR_project_id="${{ secrets.project_id }}"
+          export TF_VAR_db_password="${{ secrets.db_password }}"
+          export TF_VAR_db_username="${{ secrets.db_username }}"
+          export TF_VAR_region="europe-west1"
+          export TF_VAR_cp-zone-for-mig="europe-west1-b"
           
       - name: Terraform init
         run: terraform init

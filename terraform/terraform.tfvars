@@ -1,5 +1,5 @@
 region          = "europe-west1"
 cp-zone-for-mig = "europe-west1-b"
-project_id      = "${project_id}"
-db_password = "${db_password}"
-db_username = "${db_username}"
+project_id      = "gd-gcp-internship-devops"
+db_password = "petclinic"
+db_username = "petclinic"
