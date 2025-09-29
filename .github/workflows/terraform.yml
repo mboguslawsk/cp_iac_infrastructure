@@ -13,7 +13,7 @@ jobs:
       - name: Repo content download
         uses: actions/checkout@v4
       - name: INFO TO PRINT
-        run: echo "THe commit is ${{github.sha::5}}"
+        run: echo "THe commit is ${GITHUB_SHA::5}"
       - name: Terraform setup
         uses: hashicorp/setup-terraform@v3
       - name: Formatting
