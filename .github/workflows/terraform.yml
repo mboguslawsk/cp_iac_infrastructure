@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Repo content download
         uses: actions/checkout@v4
+      - name: INFO TO PRINT
+        run: echo "THe commit is ${{ github_sha }}"
       - name: Terraform setup
         uses: hashicorp/setup-terraform@v3
       - name: Formatting
