@@ -20,7 +20,7 @@ jobs:
       
   plan:
     runs-on: ubuntu-latest
-    needs: config_validation
+    needs: config_formatting
     env:
       GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
       GCP_JSON_SA_KEY: ${{ secrets.GCP_JSON_SA_KEY }}
