@@ -6,10 +6,10 @@ terraform {
     }
   }
 
-  # backend "gcs" {
-  #   bucket = "cp-tfstate-bucket-bm"
-  #   prefix = "terraform/state"
-  # }
+  backend "gcs" {
+    bucket = "cp-tfstate-bucket-bm"
+    prefix = "terraform/state"
+  }
 }
 
 provider "google" {
