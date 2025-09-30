@@ -78,6 +78,8 @@ resource "google_compute_instance" "cp-app-vm1" {
   lifecycle {
     create_before_destroy = true
   }
+
+  
 }
 
 # instance 1

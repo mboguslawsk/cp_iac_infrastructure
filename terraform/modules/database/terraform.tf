@@ -14,6 +14,11 @@ resource "google_sql_database_instance" "postgres_db" {
   deletion_protection = false
 }
 
+resource "google_sql_database" "petclinic_db" {
+  name     = "petclinic"
+  instance = google_sql_database_instance.postgres_db.name
+}
+
 resource "google_sql_user" "db_user" {
   name = var.db_username
   password = var.db_password
