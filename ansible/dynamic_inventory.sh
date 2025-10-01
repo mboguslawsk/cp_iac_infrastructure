@@ -7,6 +7,6 @@ HOST_2_IP=$(echo $INPUT_JSON | jq -r '.["ip-address-instance-2"].["value"]')
 
 cat <<EOL > ./ansible/inventory.ini
 [web-servers]
-app_server1 ansible_host=$HOST_1_IP ansible_user=ubuntu
-app_server2 ansible_host=$HOST_1_IP ansible_user=ubuntu
+app_server1 ansible_host=$HOST_1_IP ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/terraform_gce_key
+app_server2 ansible_host=$HOST_1_IP ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/terraform_gce_key
 EOL

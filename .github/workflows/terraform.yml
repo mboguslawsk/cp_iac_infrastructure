@@ -144,7 +144,7 @@ jobs:
         run: |
           chmod +x ${{ env.ANSIBLE_DIR }}/dynamic_inventory.sh
           ./${{ env.ANSIBLE_DIR }}/dynamic_inventory.sh ${{ needs.apply.outputs.terraform_result }}
-          ansible-playbook -i ./${{ env.ANSIBLE_DIR }}/inventory.ini ${{ env.ANSIBLE_DIR }}/main_playbook.yml --private-key ~/.ssh/terraform_gce_key
+          ansible-playbook -i ./${{ env.ANSIBLE_DIR }}/inventory.ini ${{ env.ANSIBLE_DIR }}/main_playbook.yml
 
   destroy:
     runs-on: ubuntu-latest
