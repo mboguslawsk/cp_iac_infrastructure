@@ -1,9 +1,12 @@
 #!/bin/bash
 
-INPUT_JSON="$1"
+INPUT_JSON="temp.json"
 
-HOST_1_IP=$(echo $INPUT_JSON | jq -r '.["ip-address-instance-1"].["value"]')
-HOST_2_IP=$(echo $INPUT_JSON | jq -r '.["ip-address-instance-2"].["value"]')
+echo "temp.json:"
+cat temp.json
+
+HOST_1_IP=$( jq -r '.["ip-address-instance-1"].["value"]' $INPUT_JSON )
+HOST_2_IP=$( jq -r '.["ip-address-instance-2"].["value"]' $INPUT_JSON )
 
 cat <<EOL > ./ansible/inventory.ini
 app_server1 ansible_host=$HOST_1_IP ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/terraform_gce_key
