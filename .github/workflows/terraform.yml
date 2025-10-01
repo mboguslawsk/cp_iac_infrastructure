@@ -117,8 +117,11 @@ jobs:
         id: apply_terraform
         run: |
           result=$( terraform output -json | jq -c )
+          terraform output -json | jq -c 
           echo "$result"
-          echo "result=${result}" >> $GITHUB_OUTPUT
+          echo "result<<EOF" >> $GITHUB_OUTPUT
+          echo "$result" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
   ansible-config:
     runs-on: ubuntu-latest
