@@ -29,9 +29,22 @@ resource "google_compute_firewall" "default" {
   source_ranges = ["0.0.0.0/0"]
   allow {
     protocol = "tcp"
-    ports    = ["22"]
   }
   target_tags = ["allow-health-check"]
+}
+
+resource "google_compute_firewall" "allow_ssh" {
+  name    = "allow-ssh"
+  network = google_compute_network.cp-vm-vpc.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+
+  target_tags = ["ssh-access"]  # Optional: attach to VMs with this tag
 }
 
 # ======================================================================

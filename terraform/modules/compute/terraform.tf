@@ -48,7 +48,7 @@ resource "google_compute_instance" "cp-app-vm1" {
   name         = "cp-instance-1-bm"
   machine_type = "e2-medium"
   zone         = var.cp-zone-for-mig
-  tags         = ["allow-health-check"]
+  tags         = ["allow-health-check", "ssh-access"]
 
   # Network interface with external IP
   network_interface {
@@ -82,12 +82,12 @@ resource "google_compute_instance" "cp-app-vm1" {
   
 }
 
-# instance 1
+# instance 2
 resource "google_compute_instance" "cp-app-vm2" {
   name         = "cp-instance-2-bm"
   machine_type = "e2-medium"
   zone         = var.cp-zone-for-mig
-  tags         = ["allow-health-check"]
+  tags         = ["allow-health-check", "ssh-access"]
 
   # Network interface with external IP
   network_interface {
