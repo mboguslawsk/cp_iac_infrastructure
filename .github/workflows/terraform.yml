@@ -131,14 +131,20 @@ jobs:
         run: |
           sudo apt update && sudo apt install -y python3-pip sshpass
           pip3 install ansible
+      
+      - name: Save SSH keys to the local path
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/terraform_gce_key
+          echo "${{ secrets.SSH_PUBLIC_KEY }}" > ~/.ssh/terraform_gce_key.pub
+          chmod 600 ~/.ssh/terraform_gce_key
+          chmod 600 ~/.ssh/terraform_gce_key.pub
 
       - name: Run Ansible Playbook
         run: |
           chmod +x ${{ env.ANSIBLE_DIR }}/dynamic_inventory.sh
           ./${{ env.ANSIBLE_DIR }}/dynamic_inventory.sh ${{ needs.apply.outputs.terraform_result }}
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > infra_key
-          chmod 600 infra_key
-          ansible-playbook -i ./${{ env.ANSIBLE_DIR }}/inventory.ini ${{ env.ANSIBLE_DIR }}/main_playbook.yml --private-key infra_key
+          ansible-playbook -i ./${{ env.ANSIBLE_DIR }}/inventory.ini ${{ env.ANSIBLE_DIR }}/main_playbook.yml --private-key ~/.ssh/terraform_gce_key
 
   destroy:
     runs-on: ubuntu-latest
