@@ -144,8 +144,6 @@ jobs:
 
       - name: Test Inventory
         run: |
-          echo "Inventory ansible/inventory:"
-          cat ansible/inventory.ini
           echo ${{ needs.apply.outputs.terraform_result }} > ansible/temp.json
           echo "Inventory ansible/temp.json"
           cat ansible/temp.json
