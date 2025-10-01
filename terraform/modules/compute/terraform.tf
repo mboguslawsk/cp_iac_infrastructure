@@ -62,7 +62,7 @@ resource "google_compute_instance" "cp-app-vm1" {
   # Boot disk
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-22-04-lts"
+      image = "ubuntu-os-cloud/ubuntu-2204-lts"
     }
     auto_delete = true
   }
@@ -101,7 +101,7 @@ resource "google_compute_instance" "cp-app-vm2" {
   # Boot disk
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-12"
+      image = "ubuntu-os-cloud/ubuntu-2204-lts"
     }
     auto_delete = true
   }
