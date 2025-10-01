@@ -3,7 +3,7 @@
 INPUT_JSON="temp.json"
 
 echo "temp.json:"
-cat temp.json
+cat ./ansible/temp.json
 
 HOST_1_IP=$( jq -r '.["ip-address-instance-1"].["value"]' $INPUT_JSON )
 HOST_2_IP=$( jq -r '.["ip-address-instance-2"].["value"]' $INPUT_JSON )
