@@ -2,8 +2,8 @@
 
 INPUT_JSON="$1"
 
-HOST_1_IP=$(echo $abc | jq -r '.["ip-address-instance-1"].["value"]')
-HOST_2_IP=$(echo $abc | jq -r '.["ip-address-instance-2"].["value"]')
+HOST_1_IP=$(echo $INPUT_JSON | jq -r '.["ip-address-instance-1"].["value"]')
+HOST_2_IP=$(echo $INPUT_JSON | jq -r '.["ip-address-instance-2"].["value"]')
 
 cat <<EOL > ./ansible/inventory.ini
 [web-servers]
