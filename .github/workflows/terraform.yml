@@ -117,8 +117,7 @@ jobs:
         id: apply_terraform
         run: |
           result=$( terraform output -json | jq -c )
-          echo "$result"
-          echo "$result" > ../ansible/temp.json
+          echo "$result
           echo "result=${result}" >> $GITHUB_OUTPUT
         working-directory: ${{ env.TERRAFORM_DIR }}
 
@@ -147,6 +146,7 @@ jobs:
         run: |
           echo "Inventory ansible/inventory:"
           cat ansible/inventory.ini
+          echo ${{ needs.apply.outputs.terraform_result }} > ansible/temp.json
           echo "Inventory ansible/temp.json"
           cat ansible/temp.json
 
