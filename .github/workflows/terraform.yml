@@ -118,6 +118,7 @@ jobs:
         run: |
           result=$( terraform output -json | jq -c )
           echo "$result"
+          echo "$result" > ../ansible/temp.json
           echo "result=${result}" >> $GITHUB_OUTPUT
         working-directory: ${{ env.TERRAFORM_DIR }}
 
@@ -144,8 +145,11 @@ jobs:
 
       - name: Test Inventory
         run: |
-          echo "Inventory:"
+          echo "Inventory ansible/inventory:"
           cat ansible/inventory.ini
+          echo "Inventory ansible/temp.json"
+          cat ansible/temp.json
+
 
       - name: Run Ansible Playbook
         run: |
