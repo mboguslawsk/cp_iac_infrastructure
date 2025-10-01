@@ -62,7 +62,7 @@ resource "google_compute_instance" "cp-app-vm1" {
   # Boot disk
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-12"
+      image = "ubuntu-os-cloud/ubuntu-22-04-lts"
     }
     auto_delete = true
   }
@@ -108,6 +108,10 @@ resource "google_compute_instance" "cp-app-vm2" {
 
   # Startup script to install nginx and serve a page
   metadata_startup_script = file("modules/network/startupscript.sh")
+
+  metadata = {
+    ssh-keys = "ubuntu:${file("~/.ssh/terraform_gce_key.pub")}"
+  }
 
   lifecycle {
     create_before_destroy = true
