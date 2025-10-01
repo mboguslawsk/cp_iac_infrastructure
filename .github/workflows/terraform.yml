@@ -112,12 +112,6 @@ jobs:
       - name: Apply from the plan
         run: terraform apply -auto-approve tfplan
         working-directory: ${{ env.TERRAFORM_DIR }}
-      
-      - name: Tfstate file artifact upload
-        uses: actions/upload-artifact@v4
-        with:
-          name: tfplan
-          path: ${{ env.TERRAFORM_DIR }}/tfplan
 
       - name: Output data
         id: apply_terraform
