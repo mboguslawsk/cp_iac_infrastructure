@@ -1,6 +1,6 @@
 #!/bin/bash
 
-INPUT_JSON="temp.json"
+INPUT_JSON="./ansible/temp.json"
 
 echo "temp.json:"
 cat ./ansible/temp.json
