@@ -142,12 +142,15 @@ jobs:
 
       - name: Test SSH connectivity
         run: |
+          echo "JSON:"
           echo "${{ needs.apply.outputs.terraform_result }}"
           INPUT_JSON=${{ needs.apply.outputs.terraform_result }}
           HOST_1_IP=$(echo $INPUT_JSON | jq -r '.["ip-address-instance-1"].["value"]')
           HOST_2_IP=$(echo $INPUT_JSON | jq -r '.["ip-address-instance-2"].["value"]')
           ssh -i ~/.ssh/terraform_gce_key ubuntu@${HOST_1_IP} '======= ===== echo ok app 1 ======= ====='
           ssh -i ~/.ssh/terraform_gce_key ubuntu@${HOST_2_IP} '======= ===== echo ok app 2 ======= ====='
+          echo "Inventory:"
+          cat ansible/inventory.ini
 
       - name: Run Ansible Playbook
         run: |
