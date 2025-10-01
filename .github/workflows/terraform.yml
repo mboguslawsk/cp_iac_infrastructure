@@ -73,7 +73,7 @@ jobs:
   apply:
     runs-on: ubuntu-latest
     needs: plan
-    environment: production
+    environment: production-tf-apply
     env:
       GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
       GCP_JSON_SA_KEY: ${{ secrets.GCP_JSON_SA_KEY }}
@@ -112,6 +112,12 @@ jobs:
       - name: Apply from the plan
         run: terraform apply -auto-approve tfplan
         working-directory: ${{ env.TERRAFORM_DIR }}
+      
+      - name: Tfstate file artifact upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: ${{ env.TERRAFORM_DIR }}/tfplan
 
       - name: Output data
         id: apply_terraform
@@ -123,7 +129,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - apply
-    environment: production
+    environment: production-ansible
     steps:
       - name: Repo content download
         uses: actions/checkout@v4
@@ -142,7 +148,7 @@ jobs:
 
   destroy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: production-tf-destroy
     env:
       GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
       GCP_JSON_SA_KEY: ${{ secrets.GCP_JSON_SA_KEY }}
@@ -155,6 +161,13 @@ jobs:
         uses: 'google-github-actions/auth@v3'
         with:
           credentials_json: ${{ env.GCP_JSON_SA_KEY }}
+      - name: Save SSH keys to the local path
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/terraform_gce_key
+          echo "${{ secrets.SSH_PUBLIC_KEY }}" > ~/.ssh/terraform_gce_key.pub
+          chmod 600 ~/.ssh/terraform_gce_key
+          chmod 600 ~/.ssh/terraform_gce_key.pub
       - name: Terraform init
         run: terraform init
         working-directory: ${{ env.TERRAFORM_DIR }}
