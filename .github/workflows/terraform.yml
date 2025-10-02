@@ -142,6 +142,13 @@ jobs:
           chmod 600 ~/.ssh/terraform_gce_key
           chmod 600 ~/.ssh/terraform_gce_key.pub
 
+      - name: Test Inventory
+        run: |
+          echo '${{ needs.apply.outputs.terraform_result }}' > ansible/temp.json
+          echo "Inventory ansible/temp.json"
+          cat ansible/temp.json
+
+
       - name: Run Ansible Playbook
         run: |
           chmod +x ${{ env.ANSIBLE_DIR }}/dynamic_inventory.sh
