@@ -25,19 +25,6 @@
         dest: /etc/apt/keyrings/docker.asc
         mode: '0644'
 
-    # - name: Add Docker apt repository
-    #   ansible.builtin.apt_repository:
-    #     repo: "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-    #         $(. /etc/os-release && echo \"${UBUNTU_CODENAME:-$VERSION_CODENAME}\") stable"
-    #     state: present
-    #     filename: docker
-    
-    # - name: Add Docker apt repository
-    #   ansible.builtin.apt_repository:
-    #     repo: "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
-    #     state: present
-    #     filename: docker   # This ensures the file is /etc/apt/sources.list.d/docker.list
-
     - name: Add Docker apt repository
       ansible.builtin.shell: |
         echo \
@@ -46,16 +33,24 @@
           sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         sleep 5
 
-
     - name: Update apt cache after adding Docker repo
       ansible.builtin.apt:
         update_cache: yes
 
-    
+    - name: Install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
 
-    - name: Docker Download
+
+    - name: Docker check
       ansible.builtin.shell: |
-        sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        docker --version
 
 
 
