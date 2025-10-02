@@ -15,7 +15,4 @@ app_server2 ansible_host=$HOST_2_IP ansible_user=ubuntu ansible_ssh_private_key_
 [web-servers]
 app_server1
 app_server2
-
-[web-servers:vars]
-ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 EOL
