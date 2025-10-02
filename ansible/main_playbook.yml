@@ -50,8 +50,9 @@
 
 
     - name: Docker check
-      ansible.builtin.shell: |
-        docker --version
+      ansible.builtin.debug:
+      msg: "{{ lookup('pipe', 'docker --version') }}"
+
 
 
 
