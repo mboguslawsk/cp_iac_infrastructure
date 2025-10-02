@@ -46,6 +46,7 @@
           - docker-buildx-plugin
           - docker-compose-plugin
         state: present
+        update_cache: yes
       retries: 5
       delay: 10
       register: docker_install
