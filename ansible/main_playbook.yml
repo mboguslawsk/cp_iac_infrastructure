@@ -49,9 +49,13 @@
       until: docker_install is succeeded
 
 
-    - name: Docker check
+    - name: Check Docker --version'
+      ansible.builtin.command: docker --version
+      register: docker_version
+
+    - name: Print Docker version
       ansible.builtin.debug:
-      msg: "{{ lookup('pipe', 'docker --version') }}"
+        msg: "Docekr version is: {{ docker_version.stdout }}"
 
 
 
