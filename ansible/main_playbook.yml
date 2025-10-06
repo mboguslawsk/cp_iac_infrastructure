@@ -49,7 +49,11 @@
       until: docker_install is succeeded
 
     - name: Add Remote host user to the docker group
-      ansible.builtin.shell: sudo usermod -aG docker $USER
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+      become: yes
 
     - name: Check Docker --version'
       ansible.builtin.command: docker --version

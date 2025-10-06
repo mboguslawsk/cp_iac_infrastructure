@@ -111,7 +111,7 @@ resource "google_compute_instance" "cp-app-vm2" {
     auto_delete = true
   }
 
-  # Startup script to install nginx and serve a page
+  # Startup script to add USER to docker group
   # metadata_startup_script = file("modules/network/startupscript.sh")
 
   metadata = {
