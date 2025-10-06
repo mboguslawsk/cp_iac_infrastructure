@@ -68,7 +68,7 @@ resource "google_compute_instance" "cp-app-vm1" {
   }
 
   # Startup script to install nginx and serve a page
-  metadata_startup_script = file("modules/network/startupscript.sh")
+  # metadata_startup_script = file("modules/network/startupscript.sh")
 
   # Metadata for SSH access
   metadata = {
@@ -107,7 +107,7 @@ resource "google_compute_instance" "cp-app-vm2" {
   }
 
   # Startup script to install nginx and serve a page
-  metadata_startup_script = file("modules/network/startupscript.sh")
+  # metadata_startup_script = file("modules/network/startupscript.sh")
 
   metadata = {
     ssh-keys = "ubuntu:${file("~/.ssh/terraform_gce_key.pub")}"
