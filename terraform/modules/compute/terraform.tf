@@ -59,6 +59,8 @@ resource "google_compute_instance" "cp-app-vm1" {
     }
   }
 
+  desired_status = "RUNNING"
+
   # Boot disk
   boot_disk {
     initialize_params {
@@ -97,6 +99,9 @@ resource "google_compute_instance" "cp-app-vm2" {
       nat_ip = google_compute_address.ip_address_2.address
     }
   }
+
+  desired_status = "RUNNING"
+
 
   # Boot disk
   boot_disk {
