@@ -132,6 +132,10 @@ resource "google_compute_instance_group" "cp-app-group" {
     google_compute_instance.cp-app-vm1.self_link, 
     google_compute_instance.cp-app-vm2.self_link
   ]
+  named_port {
+    name = "http"
+    port = 8080
+  }
 }
 
 
