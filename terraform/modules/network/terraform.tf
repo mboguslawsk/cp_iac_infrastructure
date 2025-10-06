@@ -27,24 +27,24 @@ resource "google_compute_firewall" "allow-http" {
 
   allow {
     protocol = "tcp"
-    ports    = ["80"]
+    ports    = ["8080"]
   }
 
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["http-allow"]
 }
 
-# allow access from health check ranges
-resource "google_compute_firewall" "default" {
-  name          = "cp-l7-xlb-fw-allow-hc-bm"
-  direction     = "INGRESS"
-  network       = google_compute_network.cp-vm-vpc.id
-  source_ranges = ["0.0.0.0/0"]
-  allow {
-    protocol = "tcp"
-  }
-  target_tags = ["allow-health-check"]
-}
+# # allow access from health check ranges
+# resource "google_compute_firewall" "default" {
+#   name          = "cp-l7-xlb-fw-allow-hc-bm"
+#   direction     = "INGRESS"
+#   network       = google_compute_network.cp-vm-vpc.id
+#   source_ranges = ["0.0.0.0/0"]
+#   allow {
+#     protocol = "tcp"
+#   }
+#   target_tags = ["allow-health-check"]
+# }
 
 resource "google_compute_firewall" "allow_ssh" {
   name    = "allow-ssh"
@@ -57,7 +57,7 @@ resource "google_compute_firewall" "allow_ssh" {
 
   source_ranges = ["0.0.0.0/0"]
 
-  target_tags = ["ssh-access"]  # Optional: attach to VMs with this tag
+  target_tags = ["ssh-access"]
 }
 
 # ======================================================================

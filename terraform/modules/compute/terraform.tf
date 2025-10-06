@@ -8,7 +8,7 @@ resource "google_compute_global_forwarding_rule" "default" {
   name                  = "cp-xlb-forwarding-rule-bm"
   ip_protocol           = "TCP"
   load_balancing_scheme = "EXTERNAL"
-  port_range            = "80"
+  port_range            = "8080"
   target                = google_compute_target_http_proxy.default.id
   ip_address            = var.ext-ip-id
 }
@@ -29,7 +29,7 @@ resource "google_compute_url_map" "default" {
 resource "google_compute_health_check" "default" {
   name     = "cp-l7-xlb-hc-bm"
   http_health_check {
-    port = "80"
+    port = "8080"
   }
 }
 
