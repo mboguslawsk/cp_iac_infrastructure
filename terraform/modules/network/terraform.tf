@@ -21,6 +21,19 @@ resource "google_compute_global_address" "default" {
   name     = "cp-lb-global-ip-bm"
 }
 
+resource "google_compute_firewall" "allow-http" {
+  name    = "cp-allow-http-bm"
+  network = google_compute_network.cp-vm-vpc.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["http-allow"]
+}
+
 # allow access from health check ranges
 resource "google_compute_firewall" "default" {
   name          = "cp-l7-xlb-fw-allow-hc-bm"
