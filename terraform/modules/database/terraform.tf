@@ -19,6 +19,7 @@ resource "google_sql_database" "petclinic_db" {
   instance = google_sql_database_instance.postgres_db.name
 }
 
+
 resource "google_sql_user" "db_user" {
   name = var.db_username
   password = var.db_password
